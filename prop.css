@@ -1,0 +1,335 @@
+/* prop.css */
+
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: black;
+  color: white;
+  font-family: Arial, sans-serif;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+/* Wrapper to hold sidebar and container side by side */
+.page-wrapper {
+  display: flex;
+  flex-direction: row;
+  flex-grow: 1;
+  min-height: 0; /* prevent overflow issues inside flex */
+}
+
+/* Sidebar styling */
+.sidebar {
+  width: 10%;
+  padding: 20px;
+  font-size: 30px;
+  cursor: pointer;
+  background-color: #111;
+  transition: background-color 0.3s;
+  height: auto;
+}
+.sidebar:hover {
+  background-color: #333;
+}
+
+/* Main container expands to fill */
+.container {
+  flex-grow: 1;
+  width: 60%;
+  margin: 5em auto 0 auto;
+  text-align: center;
+  padding: 20px;
+  position: relative;
+}
+
+/* User area top right */
+.user-area {
+  position: absolute;
+  top: -40px;
+  right: 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.user-area #logoutBtn {
+  padding: 6px 10px;
+  font-size: 12px;
+  border: none;
+  border-radius: 4px;
+  background: #555;
+  color: #fff;
+  cursor: pointer;
+}
+
+button {
+  margin: 10px;
+  padding: 10px 20px;
+  font-size: 18px;
+  border-radius: 5px;
+  border: none;
+  cursor: pointer;
+  background-color: #555;
+  color: white;
+  transition: background-color 0.3s;
+}
+button:hover:not(:disabled) {
+  background-color: #777;
+}
+button:disabled {
+  background-color: #333;
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.popup {
+  display: none;
+  position: fixed;
+  top: 10%;
+  left: 25%;
+  width: 50%;
+  background-color: #222;
+  color: white;
+  border: 2px solid #555;
+  padding: 20px;
+  z-index: 1000;
+  border-radius: 10px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+}
+.popup-content {
+  text-align: center;
+}
+.popup input {
+  margin: 10px;
+  padding: 8px;
+  border-radius: 5px;
+  border: 1px solid #555;
+  background-color: #333;
+  color: white;
+  width: 220px;
+}
+.popup input:focus {
+  outline: none;
+  border-color: #777;
+  background-color: #444;
+}
+
+.pagination {
+  margin-top: 10px;
+}
+.pagination button:disabled {
+  background-color: #222;
+  color: #666;
+}
+
+#playerList {
+  list-style: none;
+  padding: 0;
+  max-height: 300px;
+  overflow-y: auto;
+  text-align: left;
+}
+#playerList li {
+  padding: 8px;
+  border-bottom: 1px solid #555;
+  margin: 5px 0;
+}
+
+#result, #msg {
+  margin: 15px 0;
+  font-weight: bold;
+}
+
+.stats {
+  margin: 20px 0;
+  font-size: 20px;
+}
+
+/* Footer styling */
+.footer {
+  width: 100%;
+  text-align: center;
+  padding: 20px 10px;
+  background-color: #111;
+  color: white;
+  font-size: 14px;
+  margin-top: auto; /* Push footer down if container short */
+  box-sizing: border-box;
+  clear: both;
+  position: relative;
+}
+
+.footer a {
+  color: #66ccff;
+  text-decoration: none;
+}
+.footer a:hover {
+  text-decoration: underline;
+}
+
+
+/* Responsive adjustments */
+
+/* Small screens (phones, up to 600px) */
+@media (max-width: 600px) {
+  body {
+    /* Stack everything vertically */
+    flex-direction: column;
+  }
+
+  .page-wrapper {
+    flex-direction: column;
+  }
+
+  .sidebar {
+    width: 100%;
+    height: 50px;
+    font-size: 24px;
+    padding: 10px 0;
+    text-align: center;
+  }
+
+  .container {
+    width: 100%;
+    margin: 1em 0 0 0 !important;
+    padding: 10px;
+  }
+
+  button {
+    font-size: 16px;
+    padding: 8px 16px;
+    margin: 8px 0;
+    width: 100%;
+  }
+
+  .stats {
+    font-size: 16px;
+  }
+
+  #buttons button {
+    margin: 5px 3px;
+    width: 30%;
+  }
+
+  .popup {
+    top: 5%;
+    left: 5%;
+    width: 90%;
+    padding: 15px;
+  }
+
+  .popup input {
+    width: 90%;
+    font-size: 16px;
+  }
+
+  .footer {
+    font-size: 12px;
+    padding: 15px 5px;
+  }
+}
+
+/* Medium screens (tablets and small laptops, 601px to 1024px) */
+@media (min-width: 601px) and (max-width: 1024px) {
+  .sidebar {
+    width: 12%;
+    font-size: 26px;
+    height: auto;
+  }
+
+  .container {
+    width: 85%;
+    margin: 3em auto 0 auto !important;
+    padding: 15px;
+  }
+
+  button {
+    font-size: 17px;
+    padding: 10px 18px;
+  }
+
+  #buttons button {
+    width: 30%;
+  }
+
+  .stats {
+    font-size: 18px;
+  }
+
+  .popup {
+    width: 70%;
+  }
+}
+
+
+/* Contact circle button */
+.contact-circle {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  width: 50px;
+  height: 50px;
+  background-color: #66ccff;
+  color: black;
+  font-weight: bold;
+  font-size: 28px;
+  line-height: 50px;
+  text-align: center;
+  border-radius: 50%;
+  cursor: pointer;
+  box-shadow: 0 0 10px rgba(102, 204, 255, 0.7);
+  z-index: 1100;
+  user-select: none;
+  transition: background-color 0.3s;
+}
+
+.contact-circle:hover {
+  background-color: #3399ff;
+}
+
+/* Contact info popup */
+.contact-popup {
+  position: fixed;
+  bottom: 90px;  /* above the circle */
+  right: 30px;
+  width: 230px;
+  background-color: #222;
+  color: white;
+  padding: 15px;
+  border-radius: 10px;
+  box-shadow: 0 4px 14px rgba(0,0,0,0.6);
+  z-index: 1101;
+  font-size: 14px;
+}
+
+.contact-popup a {
+  color: #66ccff;
+  text-decoration: none;
+}
+.contact-popup a:hover {
+  text-decoration: underline;
+}
+
+/* Responsive adjustments for mobile */
+@media (max-width: 600px) {
+  .contact-circle {
+    width: 40px;
+    height: 40px;
+    font-size: 22px;
+    line-height: 40px;
+    bottom: 20px;
+    right: 20px;
+  }
+  .contact-popup {
+    width: 180px;
+    bottom: 70px;
+    right: 20px;
+    font-size: 13px;
+    padding: 12px;
+  }
+}
+
