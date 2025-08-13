@@ -15,7 +15,7 @@ app.use(cors());
 app.use(bodyParser.json());
 
 // MongoDB connection
-const MONGO_URI = process.env.MONGO_URI || 'mongodb+srv://Shek720:HEMA0@hema@propgamecluster.vr1391c.mongodb.net/?retryWrites=true&w=majority&appName=PropGameCluster';
+const MONGO_URI = process.env.MONGO_URI || 'mongodb+srv://Shek720:HEMA0@hema@propgamecluster.vr1391c.mongodb.net/MONGO_URI?retryWrites=true&w=majority&appName=PropGameCluster';
 mongoose.connect(MONGO_URI)
   .then(() => {
     console.log('✅ Connected to MongoDB:', MONGO_URI);
@@ -210,3 +210,4 @@ app.use((req, res) => {
 app.listen(port, () => {
   console.log(`🚀 Server running on http://localhost:${port}`);
 });
+
