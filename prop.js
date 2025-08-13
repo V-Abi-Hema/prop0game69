@@ -55,7 +55,7 @@ if (!deviceId) {
 }
 
 // Base URL for backend
-const API_BASE = 'http://localhost:3000';
+const API_BASE = 'https://prop0game69.onrender.com';
 
 // UI state helpers
 function updateUIAfterLogin() {
@@ -396,3 +396,4 @@ window.closePopup = closePopup;
 window.nextPage = nextPage;
 window.prevPage = prevPage;
 window.logout = logout;
+
