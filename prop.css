@@ -333,3 +333,18 @@ button:disabled {
   }
 }
 
+
+#upcardBtn {
+  padding: 10px 20px;
+  margin-left: 10px;
+  background-color: #ffcc00;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+#upcardBtn:hover {
+  background-color: #ffdb4d;
+}
+

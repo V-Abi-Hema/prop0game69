@@ -1,5 +1,3 @@
-// prop.js
-
 // DOM elements
 const MIN = parseInt(document.getElementById("min").dataset.value);
 const MAX = parseInt(document.getElementById("max").dataset.value);
@@ -46,7 +44,6 @@ document.addEventListener('click', (event) => {
   }
 });
 
-
 // Device ID (for 3-device rule)
 let deviceId = localStorage.getItem('deviceId');
 if (!deviceId) {
@@ -54,8 +51,12 @@ if (!deviceId) {
   localStorage.setItem('deviceId', deviceId);
 }
 
-// Base URL for backend
+// Add this line near the top after other DOM elements:
+const upcardBtn = document.getElementById('upcardBtn');
+
+// Change this line:
 const API_BASE = 'https://prop0game69.onrender.com';
+
 
 // UI state helpers
 function updateUIAfterLogin() {
@@ -67,6 +68,7 @@ function updateUIAfterLogin() {
     if (typeof currentUser.losses === 'number') losses = currentUser.losses;
     winsDisplay.textContent = wins;
     lossesDisplay.textContent = losses;
+    upcardBtn.style.display = 'inline-block'; // Show upcard after login
   }
 }
 
@@ -88,6 +90,7 @@ function logout() {
   winsDisplay.textContent = wins;
   lossesDisplay.textContent = losses;
   hasShownRegisterPopup = false;
+  upcardBtn.style.display = 'none';
 }
 
 // Game logic
@@ -219,7 +222,7 @@ function validateLogin() {
 }
 
 // Register
-function submitRegister(event) {
+function submitRegister() {
   const user = document.getElementById("regUser").value.trim();
   const pass = document.getElementById("regPass").value.trim();
   const email = document.getElementById("regEmail").value.trim();
@@ -261,8 +264,6 @@ function submitRegister(event) {
       localStorage.setItem('currentUser', JSON.stringify(currentUser));
       updateUIAfterLogin();
       closeRegister();
-      // Reset counters post-registration if desired:
-      // wins = 0; losses = 0; winsDisplay.textContent = wins; lossesDisplay.textContent = losses;
     })
     .catch(() => {
       alert("Network error while registering.");
@@ -377,11 +378,47 @@ function prevPage() {
   }
 }
 
+// Upcard button events
+upcardBtn.addEventListener('click', async () => {
+  if (!currentUser) return alert("You must be logged in.");
+  try {
+    const res = await fetch(`${API_BASE}/updateScore`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ username: currentUser.username, wins, losses })
+    });
+    const data = await res.json();
+    if (res.ok) {
+      alert('Score updated!');
+      fetchPlayerData(currentUser.username);
+    } else {
+      alert(data.error || 'Unable to update score');
+    }
+  } catch (err) {
+    console.error(err);
+    alert('Failed to update score.');
+  }
+});
+
+async function fetchPlayerData(username) {
+  try {
+    const res = await fetch(`${API_BASE}/getPlayer?username=${encodeURIComponent(username)}`);
+    if (!res.ok) throw new Error('Fetch failed');
+    const player = await res.json();
+    wins = player.wins;
+    losses = player.losses;
+    winsDisplay.textContent = wins;
+    lossesDisplay.textContent = losses;
+  } catch (err) {
+    console.error(err);
+  }
+}
+
 // Init
 loadUserFromStorage();
 setupGame();
 
-// Expose functions to window for HTML onclick
+// Expose to global scope
 window.showLogin = showLogin;
 window.closeLogin = closeLogin;
 window.validateLogin = validateLogin;
